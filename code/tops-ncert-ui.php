@@ -46,7 +46,7 @@ html body.tn-page #topics .elementor-heading-title,html body.tn-page #notes .ele
 html body.tn-page #notes .elementor-widget-text-editor,html body.tn-page #solutions .elementor-widget-text-editor,html body.tn-page #important-questions .elementor-widget-text-editor,html body.tn-page #practice-paper .elementor-widget-text-editor,html body.tn-page #topics .elementor-widget-text-editor,html body.tn-page #faq .elementor-widget-text-editor{color:var(--tn-ink)!important;line-height:1.7}
 html body.tn-page #topics ul{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}
 html body.tn-page #topics li{background:var(--tn-paper);border:1px solid var(--tn-line);border-radius:12px;padding:13px 15px;line-height:1.5;margin:0}
-html body.tn-page #topics li strong{display:block;color:var(--tn-h);font-family:"Plus Jakarta Sans",Inter,sans-serif}
+html body.tn-page #topics li strong{display:inline;color:var(--tn-h);font-family:"Plus Jakarta Sans",Inter,sans-serif}
 html body.tn-page #notes ul,html body.tn-page #solutions ul,html body.tn-page #important-questions ol{padding-left:22px}
 html body.tn-page #notes li,html body.tn-page #solutions li,html body.tn-page #important-questions li{margin:0 0 9px}
 html body.tn-page #notes li::marker,html body.tn-page #solutions li::marker,html body.tn-page #important-questions li::marker{color:var(--tn-chipfg);font-weight:700}
@@ -115,6 +115,9 @@ html body.tn-page .tn-cta h3{color:#fff!important}html body.tn-page .tn-cta p{co
 html body.tn-page .tn-tile.tn-hot b,html body.tn-page .tn-tile.tn-hot span{color:#14213D!important}
 html body.tn-page .tn-tile:hover b,html body.tn-page .tn-tile:hover span{color:#14213D!important}
 html body.tn-page .tn-tile b{color:#fff}html body.tn-page .tn-tile span{color:#C5D2FA}
+html body.tn-page .tn-tile.tn-hot b,html body.tn-page .tn-tile.tn-hot span,html body.tn-page .tn-tile:hover b,html body.tn-page .tn-tile:hover span,html body.tn-page .tn-b.tn-y,html body.tn-page .tn-qbadge{-webkit-text-fill-color:#14213D!important}
+html body.tn-page .tn-tile.tn-hot svg{color:#FFD84D!important}
+html body.tn-page .tn-b,html body.tn-page .tn-cta h3,html body.tn-page .tn-cta p,html body.tn-page .tn-tile b,html body.tn-page .tn-tile span{-webkit-text-fill-color:currentColor}
 CSS;
 }
 
