@@ -121,6 +121,9 @@ html body.tn-page .tn-b.tn-y{background:#FFD84D!important}html body.tn-page .tn-
 html body.tn-page .tn-opt.sel{border-color:#2147D6!important;box-shadow:inset 0 0 0 1px #2147D6}
 html body.tn-page ol.tn-chapters{list-style:none!important}html body.tn-page ol.tn-chapters li{margin:0!important;padding:0!important;list-style:none!important}
 html body.tn-page .tn-info li{margin:0 0 8px}
+html body.tn-page .elementor-widget-text-editor ol.tn-chapters li>a.tn-ch{display:flex!important;background:#fff!important;color:#14213D!important;padding:16px 18px!important;margin:0!important;border:1px solid #E1E7F2!important;border-radius:14px!important;font-weight:400!important;font-size:inherit!important;line-height:1.3!important;text-align:left!important}
+html body.tn-page .elementor-widget-text-editor ol.tn-chapters li>a.tn-ch:hover{background:#F7F9FF!important;border-color:#2147D6!important;color:#14213D!important}
+html body.tn-page .elementor-widget-text-editor ol.tn-chapters li>a.tn-ch .tn-n{color:#fff!important}html body.tn-page .elementor-widget-text-editor ol.tn-chapters li>a.tn-ch small{color:#5B6B8C!important}html body.tn-page .elementor-widget-text-editor ol.tn-chapters li>a.tn-ch .tn-go{color:#2147D6!important}
 CSS;
 }
 
