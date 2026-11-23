@@ -117,6 +117,10 @@ html body.tn-page .tn-tile b{color:#fff}html body.tn-page .tn-tile span{color:#C
 html body.tn-page .tn-tile.tn-hot b,html body.tn-page .tn-tile.tn-hot span,html body.tn-page .tn-tile:hover b,html body.tn-page .tn-tile:hover span,html body.tn-page .tn-b.tn-y,html body.tn-page .tn-qbadge{-webkit-text-fill-color:#14213D!important}
 html body.tn-page .tn-tile.tn-hot svg{color:#FFD84D!important}
 html body.tn-page .tn-cta h3,html body.tn-page .tn-cta p,html body.tn-page .tn-tile b,html body.tn-page .tn-tile span{-webkit-text-fill-color:currentColor}
+html body.tn-page .tn-b.tn-y{background:#FFD84D!important}html body.tn-page .tn-b.tn-y:hover{background:#fff!important}
+html body.tn-page .tn-opt.sel{border-color:#2147D6!important;box-shadow:inset 0 0 0 1px #2147D6}
+html body.tn-page ol.tn-chapters{list-style:none!important}html body.tn-page ol.tn-chapters li{margin:0!important;padding:0!important;list-style:none!important}
+html body.tn-page .tn-info li{margin:0 0 8px}
 CSS;
 }
 
@@ -312,4 +316,53 @@ function tops_nu_migrate_chapter($pid) {
   $d[1]['elements'] = $out;
   tops_cp_save_elementor($pid, $d);
   return 'migrated';
+}
+
+/* ---------- chapter list (subject page), hubs ---------- */
+function tops_nu_chapter_grid($class_id) {
+  $o = '<ol class="tn-chapters">';
+  foreach (tops_cp_chapters($class_id) as $n => $k) {
+    $o .= '<li><a class="tn-ch" href="'.esc_url(get_permalink($k)).'"><span class="tn-n">'.(int)$n.'</span><span><span class="tn-t">'.esc_html(tops_cp_short_title($k) ? preg_replace('/^Class \d+ \w+ Chapter \d+: /', '', tops_cp_short_title($k)) : 'Chapter '.$n).'</span><small>Notes · Solutions · Questions · Test</small></span><span class="tn-go">&rarr;</span></a></li>';
+  }
+  return $o.'</ol>';
+}
+function tops_nu_crumbs_widget() { return tops_cp_w('shortcode', ['shortcode' => '[tops_ncert_crumbs]']); }
+function tops_nu_hub_build($pid) {
+  $p = get_post($pid); if (!$p) return 'missing';
+  $raw = get_post_meta($pid, '_elementor_data', true);
+  if ($raw && strpos($raw, 'tops_ncert_cards') !== false) return 'ok';
+  $top = ($p->post_name === 'ncert');
+  if ($top) {
+    $intro = 'Free chapter-wise study material for NCERT books: short notes, step-by-step NCERT solutions, important questions, 30-mark sample papers and a quick 5-question test for every chapter. Pick your class to begin.';
+    $h2 = 'Choose your class';
+    $desc = 'Free NCERT chapter-wise notes, solutions, important questions, sample papers and chapter tests for Maths, Science and EVS. Pick your class and start learning.';
+  } else {
+    $cn = preg_match('/class-(\d+)/', $p->post_name, $m) ? $m[1] : '';
+    $intro = 'Everything for NCERT Class '.$cn.': chapter-wise short notes, NCERT solutions, important questions, sample papers and a 5-question chapter test. Choose a subject to see all its chapters.';
+    $h2 = 'Class '.$cn.' subjects';
+    $desc = 'NCERT Class '.$cn.' chapter-wise free notes, NCERT solutions, important questions, sample papers and chapter tests. Choose your subject and start.';
+  }
+  $hero = tops_cp_hero($p->post_title, '<p>'.esc_html($intro).'</p>');
+  array_unshift($hero['elements'], tops_nu_crumbs_widget());
+  $body = [tops_cp_h($h2, 'h2', 28), tops_cp_w('shortcode', ['shortcode' => '[tops_ncert_cards]'])];
+  if ($top) {
+    $body[] = tops_cp_h('What you get for every chapter', 'h2', 28);
+    $body[] = tops_cp_w('shortcode', ['shortcode' => '[tops_ncert_features]']);
+    $body[] = tops_cp_card([tops_cp_h('Why study from NCERT?', 'h2', 26), tops_cp_t('<ul class="tn-info"><li>NCERT textbooks are the base of CBSE school and board exam papers.</li><li>Concepts are built from the basics, so they are easy to revise.</li><li>Exercise and in-text questions are the best practice for school tests.</li><li>A strong NCERT base also helps in competitive exams later.</li></ul><p>Our notes and solutions are written in simple words, so you can learn the whole chapter quickly and practise with confidence.</p>')], 'about-ncert');
+  }
+  $foot = tops_cp_c([tops_cp_t('<p><a href="'.esc_url(home_url('/in/learning-material/')).'">Learning Material</a> · <a href="'.esc_url(home_url('/signup/')).'">Register free</a></p>')], tops_cp_pad(20, 24, 40, 24));
+  $wrap = tops_cp_c($body, tops_cp_pad(30, 16, 10, 16), 1100);
+  tops_cp_save_elementor($pid, [$hero, $wrap, $foot]);
+  if (!get_post_meta($pid, '_tops_seo_desc', true)) update_post_meta($pid, '_tops_seo_desc', $desc);
+  return 'built';
+}
+function tops_nu_migrate_subject($pid) {
+  $raw = get_post_meta($pid, '_elementor_data', true); if (!$raw) return 'no data';
+  $d = json_decode($raw, true); if (!is_array($d)) return 'bad';
+  if (strpos($raw, 'tops_ncert_crumbs') === false) array_unshift($d[0]['elements'], tops_nu_crumbs_widget());
+  tops_cp_walk($d, function (&$e) { if (($e['elType'] ?? '') === 'container' && empty($e['isInner'])) { foreach ($e['elements'] ?? [] as $w) { if (($w['widgetType'] ?? '') === 'heading' && ($w['settings']['title'] ?? '') === 'Chapters') { $e['settings']['_element_id'] = 'chapters'; return true; } } } return false; });
+  $ids = []; foreach (tops_cp_chapters($pid) as $n => $k) $ids[] = $n;
+  tops_cp_set_editor($d, tops_nu_chapter_grid($pid), '<ol');
+  tops_cp_save_elementor($pid, $d);
+  return 'ok '.count($ids);
 }
