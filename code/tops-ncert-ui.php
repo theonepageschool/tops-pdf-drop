@@ -117,7 +117,7 @@ html body.tn-page .tn-tile:hover b,html body.tn-page .tn-tile:hover span{color:#
 html body.tn-page .tn-tile b{color:#fff}html body.tn-page .tn-tile span{color:#C5D2FA}
 html body.tn-page .tn-tile.tn-hot b,html body.tn-page .tn-tile.tn-hot span,html body.tn-page .tn-tile:hover b,html body.tn-page .tn-tile:hover span,html body.tn-page .tn-b.tn-y,html body.tn-page .tn-qbadge{-webkit-text-fill-color:#14213D!important}
 html body.tn-page .tn-tile.tn-hot svg{color:#FFD84D!important}
-html body.tn-page .tn-b,html body.tn-page .tn-cta h3,html body.tn-page .tn-cta p,html body.tn-page .tn-tile b,html body.tn-page .tn-tile span{-webkit-text-fill-color:currentColor}
+html body.tn-page .tn-cta h3,html body.tn-page .tn-cta p,html body.tn-page .tn-tile b,html body.tn-page .tn-tile span{-webkit-text-fill-color:currentColor}
 CSS;
 }
 
