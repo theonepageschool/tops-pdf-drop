@@ -322,7 +322,7 @@ function tops_nu_migrate_chapter($pid) {
 function tops_nu_chapter_grid($class_id) {
   $o = '<ol class="tn-chapters">';
   foreach (tops_cp_chapters($class_id) as $n => $k) {
-    $o .= '<li><a class="tn-ch" href="'.esc_url(get_permalink($k)).'"><span class="tn-n">'.(int)$n.'</span><span><span class="tn-t">'.esc_html(tops_cp_short_title($k) ? preg_replace('/^Class \d+ \w+ Chapter \d+: /', '', tops_cp_short_title($k)) : 'Chapter '.$n).'</span><small>Notes · Solutions · Questions · Test</small></span><span class="tn-go">&rarr;</span></a></li>';
+    $o .= '<li><a class="tn-ch tl-tn" href="'.esc_url(get_permalink($k)).'"><span class="tn-n">'.(int)$n.'</span><span><span class="tn-t">'.esc_html(tops_cp_short_title($k) ? preg_replace('/^Class \d+ \w+ Chapter \d+: /', '', tops_cp_short_title($k)) : 'Chapter '.$n).'</span><small>Notes · Solutions · Questions · Test</small></span><span class="tn-go">&rarr;</span></a></li>';
   }
   return $o.'</ol>';
 }
